@@ -82,7 +82,7 @@ const updatePost = async (req, res) => {
         }
 
         if (post.author.toString() !== req.user._id.toString() && req.user.role !== "admin") {
-            throw new ApiError(400, "Not authorized to update this post.")
+            throw new ApiError(403, "Not authorized to update this post.")
         }
 
         if (title) {
@@ -147,7 +147,47 @@ const getSinglePost = async (req, res) => {
     }
 };
 
-const getAllPosts = async (req, res) => { };
+const getAllPosts = async (req, res) => {
+    try {
+        const { page = 1, limit = 10, tag, search } = req.query;
+
+        const filter = {};
+        if (tag) filter.tags = { $in: [tag] };
+
+        if (search) {
+            filter.$or = [
+                { title: { $regex: search, $options: "i" } }, // $options: "i" make it case-insensitive
+                { content: { $regex: search, $options: "i" } }
+            ];
+        }
+
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+        const [posts, totalCount] = await Promise.all([
+            Post.find(filter)
+                .populate("author", "username email avatar")
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(parseInt(limit)),
+            Post.countDocuments(filter)
+
+        ]);
+
+        return res.status(200).json(
+            new ApiResponse(200, "Posts fetched successfully", {
+                total: totalCount,
+                page: parseInt(page),
+                limit: parseInt(limit),
+                posts
+            })
+        );
+    } catch (error) {
+        console.error("Failed to get posts:", error.message);
+        return res
+            .status(500)
+            .json(new ApiError(500, "Failed to fetch posts", error.message));
+    }
+
+};
 
 export {
     createPost,

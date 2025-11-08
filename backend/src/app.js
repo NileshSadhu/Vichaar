@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -13,15 +14,16 @@ app.use(cors({
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
+app.use(cookieParser());
 
 // ✅ Routes
-import healthCheck from "./routes/healthcheck.route.js";
-import auth from "./routes/auth.route.js";
-import post from "./models/post.model.js";
+import healthCheckRoutes from "./routes/healthcheck.route.js";
+import authRoutes from "./routes/auth.route.js";
+import postsRoutes from "./routes/post.route.js";
 
-app.use("/api/health", healthCheck);
-app.use("/api/auth", auth);
-app.use("/api/post", post);
+app.use("/api/health", healthCheckRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postsRoutes);
 
 app.get("/", (req, res) => {
     res.send("Blog Website in production");
