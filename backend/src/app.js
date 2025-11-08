@@ -20,10 +20,12 @@ app.use(cookieParser());
 import healthCheckRoutes from "./routes/healthcheck.route.js";
 import authRoutes from "./routes/auth.route.js";
 import postsRoutes from "./routes/post.route.js";
+import commentRoutes from "./routes/comment.route.js";
 
 app.use("/api/health", healthCheckRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
+app.use("/api/comments", commentRoutes);
 
 app.get("/", (req, res) => {
     res.send("Blog Website in production");
