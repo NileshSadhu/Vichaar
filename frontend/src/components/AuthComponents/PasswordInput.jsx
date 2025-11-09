@@ -1,8 +1,8 @@
-export default function PasswordInput({ error }) {
+export default function PasswordInput({ error, label }) {
   return (
     <div className="flex flex-col w-full">
       <label className="text-gray-800 text-sm sm:text-base font-medium mb-1">
-        Password
+        {label}
       </label>
 
       <input

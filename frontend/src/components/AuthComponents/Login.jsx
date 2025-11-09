@@ -19,14 +19,14 @@ export default function Login() {
         <h1 className="text-3xl font-bold text-gray-900 text-left">
           Welcome Back
         </h1>
-        <p className="text-gray-600 text-left mb-8 mt-1 text-sm sm:text-base">
+        <p className="text-gray-600 text-left mb-5 mt-1 text-sm sm:text-base">
           Continue your journey with Vichaar
         </p>
 
         {/* Form */}
         <form className="flex flex-col gap-5">
           <EmailInput />
-          <PasswordInput />
+          <PasswordInput label="Password" />
           {/* Forgot Password */}
           <div className="text-right text-sm">
             <a

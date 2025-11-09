@@ -1,9 +1,7 @@
-import NameInput from "./NameInput";
-import EmailInput from "./EmailInput";
 import PasswordInput from "./PasswordInput";
 import CustomButton from "./CustomButton";
 
-export default function Register() {
+export default function ChangePassword() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden">
       {/* Background gradient */}
@@ -17,29 +15,18 @@ export default function Register() {
         backdrop-blur-lg bg-clip-padding"
       >
         <h1 className="text-3xl font-bold text-gray-900 text-left">
-          Create Account
+          Create a new password.
         </h1>
-        <p className="text-gray-600 text-left mb-5 mt-1 text-sm sm:text-base">
-          Join the Vichaar community
+        <p className="text-gray-600 text-left mb-4 mt-1 text-sm sm:text-base">
+          Don't forget this time.
         </p>
 
         {/* Form */}
         <form className="flex flex-col gap-5">
-          <NameInput />
-          <EmailInput />
-          <PasswordInput label="Password" />
-          <CustomButton name="Register" />
+          <PasswordInput label="Old Password" />
+          <PasswordInput label="New Password" />
+          <CustomButton name="Contiune" />
         </form>
-
-        {/* Already have an account link */}
-        <div className="mt-6 text-center">
-          <a
-            href="#"
-            className="text-sm text-gray-700 hover:text-gray-900 hover:underline transition-all"
-          >
-            Already have an account? Login
-          </a>
-        </div>
       </div>
     </div>
   );
