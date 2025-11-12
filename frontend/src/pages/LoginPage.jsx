@@ -29,19 +29,23 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Welcome back</h1>
-        <p>Long time no see.</p>
-        <form onSubmit={handleSubmit}>
+    <div className="min-h-screen flex items-center justify-center bg-white text-black">
+      <div className="w-full max-w-md p-8 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.05)] border border-gray-200">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-semibold mb-2 tracking-tight">
+            Welcome back
+          </h1>
+          <p className="text-gray-500 text-sm">Long time no see.</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
           <Input
             label="Email"
             type="email"
             name="email"
             value={email}
             placeholder="xyz@example.com"
-            onChange={(e) => {
-              const value = e.target.value;
+            onChange={(value) => {
               setEmail(value);
               setEmailError(isEmailValid(value));
             }}
@@ -52,19 +56,38 @@ const LoginPage = () => {
             type="password"
             name="password"
             value={password}
-            placeholder="8 character long"
-            onChange={(e) => {
-              const value = e.target.value;
+            placeholder="8 characters long"
+            onChange={(value) => {
               setPassword(value);
               setPasswordError(isPasswordValid(value));
             }}
             error={passwordError}
           />
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Loading..." : "Submit"}
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`w-full py-3 text-sm font-medium rounded-xl transition-all duration-200
+              ${
+                isLoading
+                  ? "bg-gray-900 text-gray-400 cursor-not-allowed"
+                  : "bg-black text-white hover:bg-gray-900 active:scale-[0.98]"
+              }
+            `}
+          >
+            {isLoading ? "Loading..." : "Login"}
           </button>
         </form>
-        <Link to="/register">Don’t have an account? Register</Link>
+
+        <p className="mt-6 text-center text-gray-500 text-sm">
+          Don’t have an account?{" "}
+          <Link
+            to="/register"
+            className="text-black underline underline-offset-4 hover:text-gray-700 transition-colors"
+          >
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );
