@@ -1,15 +1,12 @@
-import ChangePassword from "./components/AuthComponents/ChangePassword";
-import ForgetPassword from "./components/AuthComponents/forgetPassword";
-import Login from "./components/AuthComponents/Login";
-import Register from "./components/AuthComponents/Register";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Login />
-      <Register />
-      <ForgetPassword />
-      <ChangePassword />
-    </>
+    <Router>
+      <AppRoutes />
+    </Router>
   );
 }
+
+export default App;

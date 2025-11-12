@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import slugify from "slugify";
 
-const postSchema = new mongoose(
+const postSchema = new mongoose.Schema(
     {
         slug: {
             type: mongoose.Schema.Types.ObjectId,
