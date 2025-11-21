@@ -353,6 +353,35 @@ const changePassword = async (req, res) => {
     }
 };
 
+const getCurrentUser = async (req, res) => {
+    try {
+        const userId = req.user?._id;
+
+        if (!userId) {
+            throw new ApiError(401, "Unauthorized - Invalid token");
+        }
+
+        const user = await User.findById(userId).select("-password -refreshToken -emailVerificationToken -emailVerificationExpiry -forgetPasswordToken -forgetPasswordTokenExpiry");
+
+        if (!user) {
+            throw new ApiError(404, "User not found");
+        }
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    200,
+                    user,
+                    "Current user fetched successfully."
+                )
+            );
+    } catch (error) {
+        console.error("Get current user error:", error.message);
+        throw new ApiError(500, "Unable to fetch current user.");
+    }
+};
+
 export {
     registerUser,
     loginUser, readToken,
@@ -360,5 +389,6 @@ export {
     logoutUser,
     forgetPassword,
     resetPassword,
+    getCurrentUser,
     changePassword
 };

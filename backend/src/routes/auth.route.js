@@ -6,7 +6,8 @@ import {
     newRefreshAccessToken,
     logoutUser, forgetPassword,
     resetPassword,
-    changePassword
+    changePassword,
+    getCurrentUser
 } from "../controllers/auth.controller.js";
 
 import {
@@ -34,4 +35,6 @@ router.route("/reset-password/:resetToken").post(resetForgotPasswordValidator(),
 // secured Token
 router.route("/logout").post(verifyJwt, logoutUser);
 router.route("/change-password").post(verifyJwt, changePasswordValidator(), validate, changePassword);
+router.route("/me").get(verifyJwt, getCurrentUser);
+
 export default router;
