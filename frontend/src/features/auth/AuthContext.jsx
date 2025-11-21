@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {
   login,
   logout,
-  getCurrentUser,
+  fetchCurrentUser,
   registerUser,
 } from "../../services/authServices";
 
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userData = await getCurrentUser();
+        const userData = await fetchCurrentUser();
         setUser(userData);
       } catch (error) {
         setUser(null);
@@ -30,8 +30,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const success = await login({ email, password });
       if (success) {
-        const userData = await getCurrentUser();
+        const userData = await fetchCurrentUser();
         setUser(userData);
+        return true;
       } else {
         alert("Invalid email or password");
       }
@@ -45,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const success = await registerUser({ username, email, password });
       if (success) {
-        const userData = await getCurrentUser();
+        const userData = await fetchCurrentUser();
         setUser(userData);
         return true;
       }

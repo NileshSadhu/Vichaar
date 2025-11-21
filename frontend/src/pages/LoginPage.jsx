@@ -20,7 +20,7 @@ const LoginPage = () => {
 
     try {
       const success = await handleLogin(email, password);
-      if (success) navigate("/home");
+      if (success) navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
     } finally {

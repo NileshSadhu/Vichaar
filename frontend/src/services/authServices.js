@@ -2,7 +2,7 @@ import axiosClient from "./api.js";
 
 export const registerUser = async ({ username, email, password }) => {
     try {
-        const response = await axiosClient.post("/register",
+        const response = await axiosClient.post("/api/auth/register",
             { username, email, password }
         );
 
@@ -26,7 +26,7 @@ export const registerUser = async ({ username, email, password }) => {
 
 export const login = async ({ email, password }) => {
     try {
-        const response = await axiosClient.post("/login", {
+        const response = await axiosClient.post("/api/auth/login", {
             email,
             password
         });
@@ -51,7 +51,7 @@ export const login = async ({ email, password }) => {
 
 export const logout = async () => {
     try {
-        const response = await axiosClient.post("/logout");
+        const response = await axiosClient.post("/api/auth/logout");
 
         if (response.status === 200) {
             console.log("User logged out successfully");
@@ -70,4 +70,7 @@ export const logout = async () => {
     }
 };
 
-export const getCurrentUser = async () => { };
+export const fetchCurrentUser = async () => {
+    const res = await axiosClient.get("/api/auth/me");
+    return res.data.data;
+};
