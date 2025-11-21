@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
       } else {
         alert("Invalid email or password");
       }
+      return false;
     } catch (error) {
       console.error("Login failed:", error);
       alert("Something went wrong. Please try again.");

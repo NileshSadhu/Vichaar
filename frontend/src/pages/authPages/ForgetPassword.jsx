@@ -1,28 +1,23 @@
-import { useNavigate, Link } from "react-router-dom";
-import Input from "../components/Input";
 import { useState } from "react";
-import { isEmailValid, isPasswordValid } from "../utils/validation";
-import { useAuth } from "../features/auth/AuthContext";
+import Input from "../../components/Input";
+import { isEmailValid } from "../../utils/validation";
+import { forgetPassword } from "../../services/authServices";
 
-const LoginPage = () => {
-  const navigate = useNavigate();
-  const { handleLogin } = useAuth();
-
+const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      const success = await handleLogin(email, password);
-      if (success) navigate("/");
+      const res = await forgetPassword(email);
+      if (res.status === 200) {
+        alert(res.message || "Please check your inbox.");
+      }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Attempt failed:", error);
     } finally {
       setIsLoading(false);
     }
@@ -33,9 +28,12 @@ const LoginPage = () => {
       <div className="w-full max-w-md p-8 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.05)] border border-gray-200">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold mb-2 tracking-tight">
-            Welcome back
+            Forget Your Password
           </h1>
-          <p className="text-gray-500 text-sm">Long time no see.</p>
+          <p className="text-gray-500 text-sm">
+            Please enter the email address you'd like your password reset
+            information sent to
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -51,18 +49,6 @@ const LoginPage = () => {
             }}
             error={emailError}
           />
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            value={password}
-            placeholder="8 characters long"
-            onChange={(value) => {
-              setPassword(value);
-              setPasswordError(isPasswordValid(value));
-            }}
-            error={passwordError}
-          />
 
           <button
             type="submit"
@@ -75,22 +61,12 @@ const LoginPage = () => {
               }
             `}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? "Loading..." : "Submit"}
           </button>
         </form>
-
-        <p className="mt-6 text-center text-gray-500 text-sm">
-          Don’t have an account?{" "}
-          <Link
-            to="/register"
-            className="text-black underline underline-offset-4 hover:text-gray-700 transition-colors"
-          >
-            Register
-          </Link>
-        </p>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default ForgetPassword;

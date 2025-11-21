@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getSinglePost } from "../features/blog/blogServices";
+import { getSinglePost } from "../../features/blog/blogServices.js";
 
 export default function SinglePostPage() {
   const [post, setPost] = useState(null);

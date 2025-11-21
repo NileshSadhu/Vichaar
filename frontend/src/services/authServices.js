@@ -74,3 +74,13 @@ export const fetchCurrentUser = async () => {
     const res = await axiosClient.get("/api/auth/me");
     return res.data.data;
 };
+
+export const forgetPassword = async (email) => {
+    const res = await axiosClient.post("/api/auth/forget-password", { email });
+    return res.data;
+};
+
+export const resetPassword = async (token, newPassword) => {
+    const res = await axiosClient.post(`/api/auth/user/reset-password/${token}`, { newPassword });
+    return res.data;
+};

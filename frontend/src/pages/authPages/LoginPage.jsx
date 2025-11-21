@@ -1,14 +1,13 @@
+import { useNavigate, Link } from "react-router-dom";
+import Input from "../../components/Input";
 import { useState } from "react";
-import Input from "../components/Input";
-import { Link, useNavigate } from "react-router-dom";
-import { isEmailValid, isPasswordValid } from "../utils/validation";
-import { useAuth } from "../features/auth/AuthContext";
+import { isEmailValid, isPasswordValid } from "../../utils/validation.js";
+import { useAuth } from "../../features/auth/AuthContext";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
-  const { handleRegister } = useAuth();
+  const { handleLogin } = useAuth();
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -20,15 +19,10 @@ const RegisterPage = () => {
     setIsLoading(true);
 
     try {
-      const success = await handleRegister(username, email, password);
-      if (success) {
-        alert(
-          "Verification link sent to your email. Please verify before logging in."
-        );
-        navigate("/login");
-      }
+      const success = await handleLogin(email, password);
+      if (success) navigate("/");
     } catch (error) {
-      console.error("Registration failed:", error);
+      console.error("Login failed:", error);
     } finally {
       setIsLoading(false);
     }
@@ -36,40 +30,33 @@ const RegisterPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white text-black">
-      <div className="w-full max-w-md p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-200">
+      <div className="w-full max-w-md p-8 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.05)] border border-gray-200">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold mb-2 tracking-tight">
-            Create an Account
+            Welcome back
           </h1>
-          <p className="text-gray-500 text-sm">Gyan baatne se baadhta hai!</p>
+          <p className="text-gray-500 text-sm">Long time no see.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
-            label="Username"
-            name="username"
-            type="text"
-            value={username}
-            onChange={(value) => setUsername(value)}
-          />
-
-          <Input
             label="Email"
-            name="email"
             type="email"
+            name="email"
             value={email}
+            placeholder="xyz@example.com"
             onChange={(value) => {
               setEmail(value);
               setEmailError(isEmailValid(value));
             }}
             error={emailError}
           />
-
           <Input
             label="Password"
-            name="password"
             type="password"
+            name="password"
             value={password}
+            placeholder="8 characters long"
             onChange={(value) => {
               setPassword(value);
               setPasswordError(isPasswordValid(value));
@@ -80,25 +67,25 @@ const RegisterPage = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 text-sm font-medium rounded-xl transition-all duration-150
+            className={`w-full py-3 text-sm font-medium rounded-xl transition-all duration-200
               ${
                 isLoading
                   ? "bg-gray-900 text-gray-400 cursor-not-allowed"
-                  : "bg-black text-white hover:bg-gray-900 active:scale-[0.99]"
+                  : "bg-black text-white hover:bg-gray-900 active:scale-[0.98]"
               }
             `}
           >
-            {isLoading ? "Loading..." : "Submit"}
+            {isLoading ? "Loading..." : "Login"}
           </button>
         </form>
 
         <p className="mt-6 text-center text-gray-500 text-sm">
-          Already have an account?{" "}
+          Don’t have an account?{" "}
           <Link
-            to="/login"
+            to="/register"
             className="text-black underline underline-offset-4 hover:text-gray-700 transition-colors"
           >
-            Login
+            Register
           </Link>
         </p>
       </div>
@@ -106,4 +93,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
