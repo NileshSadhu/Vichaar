@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllPost } from "../features/blog/blogServices.js";
+import Navbar from "../components/NavBar.jsx";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -27,7 +28,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100 p-6">
-      <div className="max-w-2xl mx-auto mb-6">
+      <Navbar />
+      <div className="max-w-2xl mx-auto mt-6 mb-6">
         <input
           type="text"
           placeholder="Search posts..."

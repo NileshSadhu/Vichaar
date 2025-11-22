@@ -64,6 +64,13 @@ const LoginPage = () => {
             error={passwordError}
           />
 
+          <Link
+            to="/forgot-password"
+            className="block text-right text-sm text-gray-600 hover:text-black underline underline-offset-4"
+          >
+            Forgot Password?
+          </Link>
+
           <button
             type="submit"
             disabled={isLoading}
