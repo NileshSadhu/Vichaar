@@ -16,7 +16,7 @@ router.route('/slug/:slug').get(getSinglePost);
 
 // Protected route
 router.route("/").post(verifyJwt, createPost);
-router.route("/id/:id")
+router.route("/:id")
     .put(verifyJwt, updatePost)
     .delete(verifyJwt, deletePost);
 

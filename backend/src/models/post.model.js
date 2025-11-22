@@ -4,30 +4,30 @@ import slugify from "slugify";
 const postSchema = new mongoose.Schema(
     {
         slug: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true
+            type: String,
+            unique: true,
+            required: true,
         },
         coverImage: {
-            type: String
+            type: String,
         },
         title: {
             type: String,
-            required: true
+            required: true,
         },
         content: {
             type: String,
-            required: true
+            required: true,
         },
         tags: [String],
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-            require: true
+            required: true,
         },
     },
     {
-        timestamps: true
+        timestamps: true,
     }
 );
 
@@ -35,6 +35,6 @@ postSchema.pre("save", function (next) {
     if (!this.isModified("title")) return next();
     this.slug = slugify(this.title, { lower: true, strict: true });
     next();
-})
+});
 
 export default mongoose.model("Post", postSchema);
