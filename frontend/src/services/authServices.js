@@ -81,6 +81,13 @@ export const forgetPassword = async (email) => {
 };
 
 export const resetPassword = async (token, newPassword) => {
-    const res = await axiosClient.post(`/api/auth/user/reset-password/${token}`, { newPassword });
+    const res = await axiosClient.post(`/api/auth/reset-password/${token}`, { newPassword });
+    return res.data;
+};
+
+export const changePassword = async (token, oldPassword, newPassword) => {
+    const res = await axiosClient.post("/api/auth/change-password", {
+        oldPassword, newPassword
+    })
     return res.data;
 };
