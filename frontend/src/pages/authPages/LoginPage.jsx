@@ -2,7 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Input from "../../components/Input";
 import { useState } from "react";
 import { isEmailValid, isPasswordValid } from "../../utils/validation.js";
-import { useAuth } from "../../features/auth/AuthContext";
+import { useAuth } from "../../features/auth/useAuth.js";
 
 const LoginPage = () => {
   const navigate = useNavigate();

@@ -52,10 +52,7 @@ const ResetPasswordPage = () => {
     setIsLoading(true);
     try {
       const res = await resetPasswordService(token, password);
-      if (res.status === 200) {
-        alert(res.message || "Password reset successful.");
-        navigate("/login");
-      }
+      if (res) navigate("/login");
     } catch (err) {
       console.error(err);
       setPasswordError(err?.response?.data?.message || "Something went wrong.");

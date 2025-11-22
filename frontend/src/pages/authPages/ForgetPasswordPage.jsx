@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "../../components/Input";
 import { isEmailValid } from "../../utils/validation";
-import { forgetPassword } from "../../services/authServices";
+import { forgetPassword } from "../../services/authServices.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -13,9 +13,7 @@ const ForgetPassword = () => {
     setIsLoading(true);
     try {
       const res = await forgetPassword(email);
-      if (res.status === 200) {
-        alert(res.message || "Please check your inbox.");
-      }
+      if (res) alert("Please check inbox.");
     } catch (error) {
       console.error("Attempt failed:", error);
     } finally {

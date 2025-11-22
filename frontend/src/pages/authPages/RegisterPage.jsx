@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "../../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { isEmailValid, isPasswordValid } from "../../utils/validation.js";
-import { useAuth } from "../../features/auth/AuthContext";
+import { useAuth } from "../../features/auth/useAuth.js";
 
 const RegisterPage = () => {
   const navigate = useNavigate();

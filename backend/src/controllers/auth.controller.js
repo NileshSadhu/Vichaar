@@ -246,17 +246,21 @@ const forgetPassword = async (req, res) => {
         throw new ApiError(400, "User doesn't exist.");
     }
 
-    const { unhashToken, hashToken, shortToken } = user.generateToken();
-    user.forgetPasswordToken = hashToken
-    user.forgetPasswordTokenExpiry = new Date(Date.now() + 20 * 60 * 1000) // 20min
+    const { unhashToken, hashedToken } = user.generateToken();
+
+    user.forgetPasswordToken = hashedToken;
+    user.forgetPasswordTokenExpiry = new Date(Date.now() + 20 * 60 * 1000);
 
     await user.save({ validateBeforeSave: false });
+
+    const resetURL = `${process.env.FRONTEND_URL}/reset-password/${unhashToken}`;
+
     await sendEmail({
-        email: user?.email,
-        subject: "Request for password reset.",
+        email: user.email,
+        subject: "Request for password reset",
         mailgenContent: forgetPasswordMailgenContent(
             user.username,
-            `${req.protocol}://${req.get("host")}/api/auth/user/reset-password/${unhashToken}`
+            resetURL
         )
     });
 
@@ -266,11 +270,11 @@ const forgetPassword = async (req, res) => {
             new ApiResponse(
                 200,
                 { resetPasswordToken: unhashToken },
-                "Reset Passwor link sent to your email."
+                "Reset password link sent to your email."
             )
-        )
-
+        );
 };
+
 
 const resetPassword = async (req, res) => {
     const { resetToken } = req.params;

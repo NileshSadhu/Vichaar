@@ -19,7 +19,6 @@ function AppRoutes() {
   return (
     <Routes>
       {/* PUBLIC ROUTES */}
-      <Route path="/" element={<HomePage />} />
       <Route path="/post/:id" element={<SinglePostPage />} />
 
       {/* AUTH ROUTES (PUBLIC) */}
@@ -29,6 +28,16 @@ function AppRoutes() {
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
       {/* PROTECTED ROUTES */}
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/create"
         element={

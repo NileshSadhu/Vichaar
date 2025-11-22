@@ -6,7 +6,7 @@ import {
   registerUser,
 } from "../../services/authServices";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -33,13 +33,11 @@ export const AuthProvider = ({ children }) => {
         const userData = await fetchCurrentUser();
         setUser(userData);
         return true;
-      } else {
-        alert("Invalid email or password");
       }
       return false;
-    } catch (error) {
-      console.error("Login failed:", error);
-      alert("Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Login failed:", err);
+      return false;
     }
   };
 
@@ -52,9 +50,8 @@ export const AuthProvider = ({ children }) => {
         return true;
       }
       return false;
-    } catch (error) {
-      console.error("Registration failed:", error);
-      alert("Something went wrong during registration.");
+    } catch (err) {
+      console.error("Registration failed:", err);
       return false;
     }
   };
@@ -72,5 +69,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);
