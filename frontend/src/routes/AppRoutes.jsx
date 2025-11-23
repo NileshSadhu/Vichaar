@@ -19,7 +19,7 @@ function AppRoutes() {
   return (
     <Routes>
       {/* PUBLIC ROUTES */}
-      <Route path="/post/:id" element={<SinglePostPage />} />
+      <Route path="posts/:slug" element={<SinglePostPage />} />
 
       {/* AUTH ROUTES (PUBLIC) */}
       <Route path="/login" element={<LoginPage />} />

@@ -62,7 +62,7 @@ export default function HomePage() {
                 {post.content.slice(0, 150)}...
               </p>
               <a
-                href={`/post/${post.slug}`}
+                href={`posts/${post.slug}`}
                 className="underline text-white hover:text-zinc-300"
               >
                 Read more →

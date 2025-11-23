@@ -6,10 +6,10 @@ export const getAllPost = async ({ page = 1, limit = 10, tags, search }) => {
 
         if (page) params.page = page;
         if (limit) params.limit = limit;
-        if (tags) params.tags = tags;
+        if (tags) params.tag = tags;
         if (search) params.search = search;
 
-        const response = axiosClient.get("/", { params });
+        const response = await axiosClient.get("/api/posts/", { params });
         return response.data;
 
     } catch (error) {
@@ -18,9 +18,10 @@ export const getAllPost = async ({ page = 1, limit = 10, tags, search }) => {
     }
 };
 
+
 export const getSinglePost = async (slug) => {
     try {
-        const response = await axiosClient.get(`/slug/${slug}`);
+        const response = await axiosClient.get(`/api/posts/slug/${slug}`);
         return response.data;
 
     } catch (error) {
@@ -31,7 +32,7 @@ export const getSinglePost = async (slug) => {
 
 export const createPost = async ({ coverImage, title, content, tags }) => {
     try {
-        const response = await axiosClient.post("/", {
+        const response = await axiosClient.post("/api/posts/", {
             coverImage,
             title,
             content,
@@ -55,7 +56,7 @@ export const updatePost = async (id, { coverImage, title, content, tags }) => {
         if (tags) payload.tags = tags;
         if (coverImage) payload.coverImage = coverImage;
 
-        const response = await axiosClient.put(`/id/${id}`, payload);
+        const response = await axiosClient.put(`/api/posts/id/${id}`, payload);
         return response.data;
     } catch (error) {
         console.error("Failed to update post.", error);
@@ -65,7 +66,7 @@ export const updatePost = async (id, { coverImage, title, content, tags }) => {
 
 export const deletePost = async (id) => {
     try {
-        const response = await axiosClient.delete(`/id/${id}`);
+        const response = await axiosClient.delete(`/api/posts/id/${id}`);
         return response.data;
     } catch (error) {
         console.error("Failed to delete posts.", error);
