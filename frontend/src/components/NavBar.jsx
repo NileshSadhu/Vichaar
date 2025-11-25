@@ -1,41 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../services/authServices";
-
 export default function Navbar() {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
   return (
-    <div className="w-full bg-white text-black py-4 px-6 flex justify-between items-center shadow-lg rounded-2xl">
-      {/* LEFT: Brand */}
-      <Link to="/" className="text-2xl font-bold tracking-wide">
-        Vichaar
-      </Link>
+    <header className="border-b border-gray-200 bg-white">
+      <div className="max-w-4xl mx-auto px-6 py-8 text-center">
+        <h1 className="font-serif text-6xl font-bold tracking-tight mb-6 text-gray-900">
+          vichaar
+        </h1>
 
-      {/* RIGHT: Profile Menu */}
-      <div className="flex items-center gap-4">
-        <Link
-          to="/change-password"
-          className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 transition"
-        >
-          Change Password
-        </Link>
-
-        <button
-          onClick={handleLogout}
-          className="px-3 py-2 rounded bg-red-500 hover:bg-red-600 transition"
-        >
-          Logout
-        </button>
+        <nav className="flex justify-center items-center space-x-10 text-base font-medium text-gray-700">
+          <a href="/" className="hover:text-black transition">
+            About
+          </a>
+          <a href="/" className="hover:text-black transition">
+            Blog
+          </a>
+          <a href="/" className="hover:text-black transition">
+            Subscribe
+          </a>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 }
