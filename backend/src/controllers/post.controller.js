@@ -156,7 +156,7 @@ const getAllPosts = async (req, res) => {
 
         if (search) {
             filter.$or = [
-                { title: { $regex: search, $options: "i" } }, // $options: "i" make it case-insensitive
+                { title: { $regex: search, $options: "i" } },
                 { content: { $regex: search, $options: "i" } }
             ];
         }
