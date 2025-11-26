@@ -18,7 +18,6 @@ export const getAllPost = async ({ page = 1, limit = 10, tags, search }) => {
     }
 };
 
-
 export const getSinglePost = async (slug) => {
     try {
         const response = await axiosClient.get(`/api/posts/slug/${slug}`);
