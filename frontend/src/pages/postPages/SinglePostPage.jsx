@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSinglePost } from "../../features/blog/blogServices.js";
+import CommentSection from "../../components/Comments/CommentSection.jsx";
+import { useAuth } from "../../features/auth/useAuth.js";
 
 export default function SinglePostPage() {
   const [post, setPost] = useState(null);
@@ -8,6 +10,7 @@ export default function SinglePostPage() {
   const [error, setError] = useState(null);
 
   const { slug } = useParams();
+  const { user } = useAuth();
 
   const fetchPost = async () => {
     try {
@@ -79,6 +82,8 @@ export default function SinglePostPage() {
           </div>
         )}
       </div>
+      {/* {post && post._id && <CommentSection postId={post._id} />} */}
+      <CommentSection postId={post._id} currentUser={user} />
     </div>
   );
 }
